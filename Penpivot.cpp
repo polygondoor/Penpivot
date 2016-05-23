@@ -24,8 +24,8 @@ Penpivot::Penpivot(int stepsForFullRotation, float leftWheelDiameter, float righ
 	_motor2 = new AF_Stepper(_stepsForFullRotation, 2);
 
 	// motor steps can be changed to SINGLE, DOUBLE or INTERLEAVE or MICROSTEP
-	_stepper1 = new AccelStepper( _motor1->onestep(FORWARD, DOUBLE), _motor1->onestep(BACKWARD, DOUBLE));
-	_stepper2 = new AccelStepper( _motor2->onestep(FORWARD, DOUBLE), _motor2->onestep(BACKWARD, DOUBLE));
+	_stepper1 = new AccelStepper( _motor1->onestep(FORWARD, DOUBLE),  _motor1->onestep(BACKWARD, DOUBLE));
+	_stepper2 = new AccelStepper( _motor2->onestep(BACKWARD, DOUBLE), _motor2->onestep(FORWARD, DOUBLE));
 
 	// set maximum speeds
 	_stepper1->setMaxSpeed(1000);
