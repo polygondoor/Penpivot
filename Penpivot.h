@@ -9,6 +9,9 @@ class Penpivot
 {
   public:
     Penpivot(int stepsForFullRotation, float leftWheelDiameter, float rightWheelDiameter, float turtleDiameter);
+
+    void initiate();
+
     void pivotLeft(float deg);
     void pivotRight(float deg);
     void goFowards(float mm);
@@ -46,6 +49,10 @@ class Penpivot
 	AccelStepper * _stepper1;
 	AccelStepper * _stepper2;
 
+	void forwardstep1();
+	void backwardstep1();
+	void forwardstep2();
+	void backwardstep2();
 };
 
 #endif

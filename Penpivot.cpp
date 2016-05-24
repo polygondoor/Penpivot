@@ -19,20 +19,30 @@ Penpivot::Penpivot(int stepsForFullRotation, float leftWheelDiameter, float righ
 	// the turtle central axis
 	_turtleTravelPerTurn = _turtleDiameter * 3.1416;
 
-	// Create the AF_Stepper objects
+}
+
+// Public Methods implementation
+
+void  Penpivot::initiate() {
+		// Create the AF_Stepper objects
 	_motor1 = new AF_Stepper(_stepsForFullRotation, 1);
 	_motor2 = new AF_Stepper(_stepsForFullRotation, 2);
 
 	// motor steps can be changed to SINGLE, DOUBLE or INTERLEAVE or MICROSTEP
-	_stepper1 = new AccelStepper( _motor1->onestep(FORWARD, DOUBLE),  _motor1->onestep(BACKWARD, DOUBLE));
-	_stepper2 = new AccelStepper( _motor2->onestep(BACKWARD, DOUBLE), _motor2->onestep(FORWARD, DOUBLE));
+	_stepper1 = new AccelStepper( this.*this->forwardstep1,  this.*this->backwardstep1 );
+	// ((ButtonObj)->*(ButtonFunc))();
+	// return (f.*f.do_something)(5);
+	// &Penpivot::forwardstep1
+
+	//_stepper2 = new AccelStepper( backwardstep2, forwardstep2);
+
+// aClass a; // note: no parentheses; with parentheses it's a function declaration
+// function1(&aClass::test, a);
 
 	// set maximum speeds
 	_stepper1->setMaxSpeed(1000);
     _stepper2->setMaxSpeed(1000);
 }
-
-// Public Methods implementation
 
 bool Penpivot::hasFinishedCurrrentMove()
 {	
@@ -112,4 +122,16 @@ float Penpivot::rightDistanceToSteps(float mm){
   return mm / _rightWheelTravelPerTurn * _stepsForFullRotation;
 }
 
-
+void Penpivot::forwardstep1() {  
+  _motor1->onestep(FORWARD, DOUBLE);
+}
+void Penpivot::backwardstep1() {  
+  _motor1->onestep(BACKWARD, DOUBLE);
+}
+// wrappers for the second motor!
+void Penpivot::forwardstep2() {  
+  _motor2->onestep(FORWARD, DOUBLE);
+}
+void Penpivot::backwardstep2() {  
+  _motor2->onestep(BACKWARD, DOUBLE);
+}
